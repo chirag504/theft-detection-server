@@ -1,0 +1,7 @@
+python-socketio
+fastapi
+uvicorn
+motor
+requests
+azureml-fsspec
+opencv-python
