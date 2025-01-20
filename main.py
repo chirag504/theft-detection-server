@@ -16,7 +16,8 @@ app = FastAPI()
 # STATIC_API_URL = "https://ams-backend-bdx5.onrender.com"
 
 origins = [
-    "https://yolov11-endpoint.centralindia.inference.ml.azure.com"
+    "https://yolov11-endpoint.centralindia.inference.ml.azure.com",
+    "https://chirag504-theft-detection-sample-user-main-gyeiik.streamlit.app"
 ]
 
 sio = socketio.AsyncServer(cors_allowed_origins=origins, async_mode='asgi')
