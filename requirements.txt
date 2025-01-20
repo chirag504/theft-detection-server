@@ -4,4 +4,4 @@ uvicorn
 motor
 requests
 azureml-fsspec
-opencv-python
+opencv-python-headless
