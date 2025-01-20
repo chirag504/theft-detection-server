@@ -17,7 +17,8 @@ app = FastAPI()
 
 origins = [
     "https://yolov11-endpoint.centralindia.inference.ml.azure.com",
-    "https://chirag504-theft-detection-sample-user-main-gyeiik.streamlit.app"
+    "https://chirag504-theft-detection-sample-user-main-gyeiik.streamlit.app",
+    "http://localhost:8501"
 ]
 
 sio = socketio.AsyncServer(cors_allowed_origins=origins, async_mode='asgi')
