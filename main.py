@@ -16,7 +16,7 @@ app = FastAPI()
 # STATIC_API_URL = "https://ams-backend-bdx5.onrender.com"
 
 origins = [
-    "http://localhost:3000", "https://alumni-mapping-system.vercel.app", "https://ams-backend-bdx5.onrender.com"
+    "https://yolov11-endpoint.centralindia.inference.ml.azure.com"
 ]
 
 sio = socketio.AsyncServer(cors_allowed_origins=origins, async_mode='asgi')
@@ -51,6 +51,12 @@ async def connect_to_storage_and_download_video(sid, connection_string, video_pa
 
     cap = cv2.VideoCapture(local_path)
     frames = []
+    url = "https://yolov11-endpoint.centralindia.inference.ml.azure.com/score"
+    request_headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 7sVL2sfGINeeaWyrcJNce86hRPd2IOja", 
+        "azureml-model-deployment": "yolov11n-1" 
+    }
     # Loop through the video frames
     while cap.isOpened():
         # Read a frame from the video
@@ -67,19 +73,25 @@ async def connect_to_storage_and_download_video(sid, connection_string, video_pa
                 payload = {
                     'frames': encoded_frames
                 }
-                # url = 'https://httpbin.org/post'
-                # TODO connect to the model
-                # response = requests.post(url, json=payload)
+                # request_body = {}
+                response = requests.post(url, json=payload, headers=request_headers)
                 frames = []
+                if not response.ok:
+                    break
+                # response = requests.post(url, json=payload)
         else:
-            pass # TODO
+            break
+            # pass # TODO
     os.remove(local_path)
-
-
 
 @sio.on('send_prediction')
 async def receive_and_send_model_prediction(sid, classes, confidences, bounding_boxes, orig_frame):
-    await sio.emit("receive_prediction", {}) # TODO
+    await sio.emit("receive_prediction", {
+        'classes': classes,
+        'confidences': confidences,
+        'bounding_boxes': bounding_boxes,
+        'orig_frame': orig_frame
+    })
 
 # @sio.on('msg')
 # async def client_side_receive_msg(sid, msg, student, alumni):
