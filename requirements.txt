@@ -1,9 +1,7 @@
 python-socketio
 fastapi
-# uvicorn
+uvicorn
 motor
 requests
 azureml-fsspec
 opencv-python
-gunicorn
-fcntl
