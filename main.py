@@ -46,10 +46,11 @@ def disconnect(sid):
 @sio.on('send_video')
 async def connect_to_storage_and_download_video(sid, connection_string, video_path):
     fs = AzureMachineLearningFileSystem(connection_string)
-    fs.get(video_path, f'./vids/')
+    fs.get(video_path, f'./videos_file_share/')
+
 
     file_name = video_path.split('/')[-1]
-    local_path = f'vids/{file_name}'
+    local_path = f'videos_file_share/{file_name}'
 
     cap = cv2.VideoCapture(local_path)
     frames = []
