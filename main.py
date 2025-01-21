@@ -32,7 +32,7 @@ def read_root():
 
 
 @sio.event
-async def connect(sid): # , environ, alumni
+async def connect(sid, environ, person): # , environ, alumni
     # await sio.enter_room(sid, alumni)
     print(sid, "connected")
     # print(alumni)
