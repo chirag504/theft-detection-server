@@ -27,7 +27,7 @@ app.mount("/", socket_app)
 
 @app.get("/")
 def read_root():
-    print("running")
+    print("$$$$$$$$$$ running $$$$$$$$$$")
     return {"Chat": "Opened"}
 
 
@@ -45,6 +45,7 @@ def disconnect(sid):
 
 @sio.on('send_video')
 async def connect_to_storage_and_download_video(sid, connection_string, video_path):
+    print("send_video called")
     fs = AzureMachineLearningFileSystem(connection_string)
     fs.get(video_path, f'./videos_file_share/')
 
@@ -89,6 +90,7 @@ async def connect_to_storage_and_download_video(sid, connection_string, video_pa
 
 @sio.on('send_prediction')
 async def receive_and_send_model_prediction(sid, classes, confidences, bounding_boxes, orig_frame):
+    print("send_prediction called")
     await sio.emit("receive_prediction", {
         'classes': classes,
         'confidences': confidences,
@@ -97,8 +99,14 @@ async def receive_and_send_model_prediction(sid, classes, confidences, bounding_
     })
 
 @sio.on('send_test')
-async def send_test(sid, data):
-    await sio.emit('receive_test', {"from": "server", "data": data})
+async def send_test(sid, connection_string, video_path):
+    fs = AzureMachineLearningFileSystem(connection_string)
+    fs.get(video_path, f'./videos_file_share/')
+
+
+    file_name = video_path.split('/')[-1]
+    local_path = f'videos_file_share/{file_name}'
+    await sio.emit('receive_test', {"from": "server", "data": local_path})
 
 # @sio.on('msg')
 # async def client_side_receive_msg(sid, msg, student, alumni):
