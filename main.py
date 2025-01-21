@@ -97,7 +97,7 @@ async def receive_and_send_model_prediction(sid, classes, confidences, bounding_
 
 @sio.on('send_test')
 async def send_test(sid, data):
-    await sio.emit('recieve_test', {"from": "server", "data": data})
+    await sio.emit('receive_test', {"from": "server", "data": data})
 
 # @sio.on('msg')
 # async def client_side_receive_msg(sid, msg, student, alumni):

@@ -6,3 +6,4 @@ requests
 azureml-fsspec
 # opencv-python-headless
 opencv-contrib-python-headless
+python-dateutil
