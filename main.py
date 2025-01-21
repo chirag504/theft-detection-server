@@ -22,7 +22,7 @@ origins = [
 
 sio = socketio.AsyncServer(cors_allowed_origins=origins, async_mode='asgi')
 socket_app = socketio.ASGIApp(sio)
-app.mount("/socket", socket_app)
+app.mount("/", socket_app)
 
 
 @app.get("/")
