@@ -17,6 +17,7 @@ app = FastAPI()
 
 origins = [
     "https://yolov11-endpoint.centralindia.inference.ml.azure.com",
+    "https://theft-detection-sample-user-9q2779lux-chirag504s-projects.vercel.app"
 ]
 
 sio = socketio.AsyncServer(cors_allowed_origins=origins, async_mode='asgi')
