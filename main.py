@@ -100,8 +100,15 @@ async def receive_and_send_model_prediction(sid, classes, confidences, bounding_
 
 @sio.on('send_test')
 async def send_test(sid, connection_string, video_path):
-    # fs = AzureMachineLearningFileSystem(connection_string)
-    # fs.get(video_path, f'./videos_file_share/')
+    try:
+        fs = AzureMachineLearningFileSystem(connection_string)
+    except Exception as e:
+        await sio.emit('receive_test', {"from": "server", "data": "file system connection error"})
+    
+    try:
+        fs.get(video_path, f'./videos_file_share/')
+    except Exception as e:
+        await sio.emit('receive_test', {"from":"server","data":"file path error"})
 
 
     # file_name = video_path.split('/')[-1]
