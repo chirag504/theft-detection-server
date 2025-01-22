@@ -108,7 +108,7 @@ async def send_test(sid, connection_string, video_path):
     try:
         fs.get(video_path, f'/videos_file_share/') # "/mounts/<path-name>"
     except Exception as e:
-        await sio.emit('receive_test', {"from":"server","data":"file path error"})
+        await sio.emit('receive_test', {"from":"server","data":e})
 
 
     # file_name = video_path.split('/')[-1]
