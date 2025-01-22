@@ -4,6 +4,7 @@ uvicorn
 motor
 requests
 azureml-fsspec
+azure-ai-ml
 # opencv-python-headless
 opencv-contrib-python-headless
 python-dateutil
