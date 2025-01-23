@@ -49,7 +49,6 @@ async def connect_to_storage_and_download_video(sid, connection_string, video_pa
     fs = AzureMachineLearningFileSystem(connection_string)
     fs.get(video_path, f'/videos_file_share/')
 
-
     file_name = video_path.split('/')[-1]
     local_path = f'/videos_file_share/{file_name}'
 
@@ -65,6 +64,7 @@ async def connect_to_storage_and_download_video(sid, connection_string, video_pa
     while cap.isOpened():
         # Read a frame from the video
         success, frame = cap.read()
+        await sio.emit("receive_prediction", {"success": success})
         if success:
             if len(frames) < 40:
                 frames.append(frame)
