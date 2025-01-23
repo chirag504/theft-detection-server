@@ -47,11 +47,11 @@ def disconnect(sid):
 async def connect_to_storage_and_download_video(sid, connection_string, video_path):
     print("send_video called")
     fs = AzureMachineLearningFileSystem(connection_string)
-    fs.get(video_path, f'./videos_file_share/')
+    fs.get(video_path, f'/videos_file_share/')
 
 
     file_name = video_path.split('/')[-1]
-    local_path = f'videos_file_share/{file_name}'
+    local_path = f'/videos_file_share/{file_name}'
 
     cap = cv2.VideoCapture(local_path)
     frames = []
@@ -100,13 +100,13 @@ async def receive_and_send_model_prediction(sid, classes, confidences, bounding_
 
 @sio.on('send_test')
 async def send_test(sid, connection_string, video_path):
-    try:
-        fs = AzureMachineLearningFileSystem(connection_string)
-    except:
-        await sio.emit('receive_test', {"from": "server", "data": "file system connection error"})
+    # try:
+    #     fs = AzureMachineLearningFileSystem(connection_string)
+    # except:
+    #     await sio.emit('receive_test', {"from": "server", "data": "file system connection error"})
     
     # try:
-    fs.get(video_path, f'/videos_file_share/') # "/mounts/<path-name>"
+    # fs.get(video_path, f'/videos_file_share/') # "/mounts/<path-name>"
     # except:
         # await sio.emit('receive_test', {"from":"server","data":})
 
