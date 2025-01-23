@@ -77,7 +77,7 @@ async def connect_to_storage_and_download_video(sid, connection_string, video_pa
                 payload = {
                     'frames': encoded_frames
                 }
-                sio.emit("receive_prediction", payload)
+                await sio.emit("receive_prediction", payload)
 
                 # request_body = {}
                 # response = requests.post(url, json=payload, headers=request_headers)
